@@ -8,8 +8,28 @@ namespace SzallodaAlkalmazas
 {
     public partial class Form1 : Form
     {
-        private readonly string connectionString =
-            "Server=localhost;Port=3306;Database=SzallodaDb;Uid=root;Pwd=mysql;CharSet=utf8;";
+        private readonly string connectionString = "Server=localhost;Port=3306;Database=SzallodaDb;Uid=root;Pwd=mysql;CharSet=utf8;";
+
+        private string ujVendegNev;
+        private string ujVendegTelefon;
+        private string ujVendegEmail;
+
+        public void UjVendegMentese()
+        {
+            string query = "INSERT INTO Guests (Name, Phone, Email) VALUES (@Name, @Phone, @Email)";
+
+            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            {
+                using (MySqlCommand command = new MySqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@Name", ujVendegNev);
+                    command.Parameters.AddWithValue("@Phone", ujVendegTelefon);
+                    command.Parameters.AddWithValue("@Email", ujVendegEmail);
+                    connection.Open();
+                    command.ExecuteNonQuery();
+                }
+            }
+        }
 
         private readonly Hotel hotel = new Hotel();
         private readonly ListBox lista = new ListBox();
