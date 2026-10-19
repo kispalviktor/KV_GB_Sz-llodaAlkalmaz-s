@@ -2,11 +2,15 @@
 using System;
 using System.Drawing;
 using System.Windows.Forms;
+using MySql.Data.MySqlClient;
 
 namespace SzallodaAlkalmazas
 {
     public partial class Form1 : Form
     {
+        private readonly string connectionString =
+            "Server=localhost;Port=3306;Database=SzallodaDb;Uid=root;Pwd=mysql;CharSet=utf8;";
+
         private readonly Hotel hotel = new Hotel();
         private readonly ListBox lista = new ListBox();
         private bool mintaBetoltve = false;
